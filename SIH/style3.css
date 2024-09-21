@@ -1,0 +1,660 @@
+/* import google font  */
+@import url('https//fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;}
+
+
+/* body{
+    background: rgba(0, 0, 0, 0.909); 
+     
+    background-position: center;  
+} */
+
+.chatbot-toggler {
+    position: fixed;
+    right: 40px;
+    bottom: 35px;
+    height: 50px;
+    width: 50px;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    /* background: #7d67bf; */
+    background:  rgb(241, 119, 12);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.chatbot-toggler:hover{
+    /* background: rgba(20, 217, 210, 0.733); Darken the background on hover */
+    background-color:pink;
+    color: #100e0e; /* Change text color on hover */
+    transition: all 0.3s ease; /*Smooth transition for the hover effect */
+    
+}
+
+
+.show-chatbot .chatbot-toggler{
+   transform: rotate(90deg); 
+}
+.chatbot-toggler span{
+    position: absolute;
+}
+
+.show-chatbot .chatbot-toggler span:first-child,
+.chatbot-toggler span:last-child {
+    opacity: 0;
+}
+
+.show-chatbot .chatbot-toggler span:last-child{
+    opacity: 1;
+}
+
+.chatbot {
+    position: fixed;
+    right: 40px;
+    bottom: 100px;
+    width: 420px;
+    overflow: hidden;
+    transform: scale(0.5);
+    opacity: 0;
+    pointer-events: none;
+    background: #fff;
+    border-radius: 15px;
+    transform-origin: bottom right;
+    box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
+                0 32px 64px -48px rgba(0,0,0,0.5);
+    transition: all 0.1s ease;
+    z-index: 1000; /* Ensure chatbot is on top */
+}
+
+.show-chatbot .chatbot{
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.chatbot header{
+    /* background: #497bd1; */
+    background:  rgb(240, 148, 67);
+    padding: 16px 0;
+    text-align: center;
+    position: relative; 
+}
+
+.chatbot header h2{
+    color: #fff;
+    font-size: 1.4rem;
+    margin-left: 160px;
+}
+
+.chatbot header span{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    transform: translateY(-50%);
+}
+
+.chatbot .chatbox{
+    height: 450px;
+    overflow-y: auto;
+    padding: 30px 20px 70px;
+}
+
+.chatbox .chat{
+    display: flex;
+}
+
+.chatbox .incoming span{
+    height: 32px;
+    width: 32px;
+    color: #fff;
+    align-self: flex-end;
+    background: #724ae8;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 4px;
+    margin: 0 10px 7px 0;
+
+}
+
+.chatbox .outgoing{
+    margin: 20px 0;
+    justify-content: flex-end;
+
+}
+
+.chatbox .chat p{
+    color: #fff;
+    font-size: 0.95rem;
+    max-width: 75%;
+    white-space: pre-wrap;
+    padding: 12px 16px;
+    border-radius: 10px 10px 0 10px;
+    background: #724ae8;
+}
+.chatbox .chat p.error {
+    color: #721c24;
+    background: #f8d7da;
+}
+.chatbox .incoming p{
+    color: #000;
+    background: #f2f2f2;
+    border-radius: 10px 10px 10px 0;
+}
+
+.chatbot .chat-input{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    background: #fff;
+    padding: 5px 20px;
+    border-top: 1px solid #ccc;
+}
+
+.chat-input textarea{
+    height: 55px;
+    width: 100%;
+    border: none;
+    outline: none;
+    max-height: 180px;
+    font-size: 0.95rem;
+    resize: none;
+    padding: 16px 15px 16px 0;
+}
+
+.chat-input span{
+    align-self: flex-end;
+    height: 55px;
+    line-height: 55px;
+    color: #724ae8;
+    font-size: 1.35rem;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.chat-input textarea:valid ~ span{
+    visibility: visible;
+}
+
+@media(max-width: 490px){
+    .chatbot{
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .chatbot .chatbox{
+        height: 90%;
+    }
+    .chatbot header span{
+        display: block;
+    }
+}
+
+.int{
+    text-align: left;
+}
+
+/* ------------------------------------------------------------------------------ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    font-family: Poppins;
+    margin: 0;
+    /* background-color: #010101;
+    color: #181212; */
+}
+
+svg{
+    width: 25px;
+}
+
+header{
+    width: 100vw;
+    max-width: 100%;
+    margin: auto;
+    display: grid;
+    /* background-color: #fbbaba; */
+    grid-template-columns: 50px 1fr 50px;
+    grid-template-rows: 50px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+    background: rgba(207, 145, 63, 0.5);
+    height: 60px;
+} 
+header{
+    
+    position: fixed; /* Fixes the header to the top */
+    top: 0; /* Positions the header at the top */
+    z-index: 100; /* Keeps the header above other elements */
+    background: rgba(207, 145, 63, 0.5);
+    /* Optional height if needed */
+    /* height: 60px; */
+}
+
+
+header .logo{
+    font-weight: 990;
+    position: relative;
+    left:30px;   
+}
+
+header .menu{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-weight: 550;
+}
+
+
+
+header .menu{
+    display: flex;
+    justify-content: end;
+}
+
+.button{
+    width: 120px;
+    background:  rgb(241, 119, 12); 
+    height: 40px;
+    line-height: 40px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    color: white;
+
+}
+
+.button {
+    width: 120px;
+    height: 40px;
+    background: rgb(241, 119, 12);
+    color: white;
+    font-weight: bold; /* Makes text bolder */
+    text-align: center; /* Centers text horizontally */
+    line-height: 40px; /* Centers text vertically */
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    display: inline-block; /* Ensures proper centering in inline elements */
+}
+
+
+
+
+
+.button:hover{
+    /* background: rgba(23, 221, 236, 0.822); Darken the background on hover */
+    background-color:pink;
+    color: #100e0e; /* Change text color on hover */
+    transition: all 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+.down{
+    margin-top:10px;
+}
+
+ul li {
+    transition: color 0.5s ease, font-size 0.5s ease;
+}
+
+.menu li:hover {
+    color: rgba(0, 0, 0, 0.7); /* Darker color */
+    font-size: large;
+    font-weight: bold; /* Bold on hover */
+}
+
+#black a {
+    color: black;
+}
+
+#black a:hover {
+    color: rgba(0, 0, 0, 0.7); /* Optional: Change color on hover if needed */
+}
+
+
+
+/* ---------------------------------------------------------------------------------------------- */
+
+.background{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* .page2{
+    height:100vw;
+    width:100vw;
+    
+} */
+
+p{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+} 
+
+.footer{
+    /* height: 200px; */
+    background-color:  rgba(193, 144, 81, 0.5);
+}
+
+.login2{
+        padding-left: 715px;
+        background-color:  rgba(193, 144, 81, 0.5);
+    }
+.login1{
+    background-color: rgba(193, 144, 81, 0.5);
+}
+
+/* -------------------------------------------------------------------------------------- */
+
+/* css slider */
+.slider{
+    height: 100vh;
+    margin-top: -50px;
+    position: relative;
+}
+.slider .list .item {
+    position: absolute;
+    inset: 0 0 0 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: .5s;
+    z-index: 1; /* Lower the z-index of slider items */
+}
+.slider .list .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.slider .list .item::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(
+        to top, #000000dd 40%, transparent
+    );
+}
+.slider .list .item .content{
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    width: 500px;
+    max-width: 80%;
+    z-index: 1;
+}
+.slider .list .item .content p:nth-child(1){
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+.slider .list .item .content h2{
+    font-size: 100px;
+    margin: 0;
+}
+.slider .list .item.active{
+    opacity: 1;
+    z-index: 10;
+}
+@keyframes showContent {
+    to{
+        transform: translateY(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+.slider .list .item.active p:nth-child(1),
+.slider .list .item.active h2,
+.slider .list .item.active p:nth-child(3){
+    transform: translateY(30px);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent .5s .7s ease-in-out 1 forwards;
+}
+.slider .list .item.active h2{
+    animation-delay: 1s;
+}
+.slider .list .item.active p:nth-child(3){
+    animation-duration: 1.3s;
+}
+.arrows{
+    position: absolute;
+    top: 30%;
+    right: 50px;
+    z-index: 100;
+}
+.arrows button{
+    background-color: #eee5;
+    border: none;
+    font-family: monospace;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: x-large;
+    color: #eee;
+    transition: .5s;
+}
+.arrows button:hover{
+    background-color: #eee;
+    color: black;
+}
+.thumbnail{
+    position: absolute;
+    bottom: 50px;
+    z-index: 11;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 250px;
+    padding: 0 50px;
+    box-sizing: border-box;
+    overflow: auto;
+    justify-content: center;
+}
+.thumbnail::-webkit-scrollbar{
+    width: 0;
+}
+.thumbnail .item{
+    width: 150px;
+    height: 220px;
+    filter: brightness(.5);
+    transition: .5s;
+    flex-shrink: 0;
+}
+.thumbnail .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.thumbnail .item.active{
+    filter: brightness(1.5);
+}
+.thumbnail .item .content{
+    position: absolute;
+    inset: auto 10px 10px 10px;
+}
+@media screen and (max-width: 678px) {
+    .thumbnail{
+        justify-content: start;
+    }
+    .slider .list .item .content h2{
+        font-size: 60px;
+    }
+    .arrows{
+        top: 10%;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* footer */
+/* footer{
+    margin-top: 15px;
+} */
+
+.foot-panel1{
+    background-color: rgba(0, 0, 0, 0.795);
+    color: white;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.foot-panel2{
+    background-color: #222222;
+    color: white;
+    height: 250px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+ul{
+    margin-top: 20px;
+}
+
+ul a{
+    display: block;
+    font: size 0.85rem;
+    margin: 10px;
+    color: #dddddd;
+}
+
+.foot-panel3{
+    background-color: #222222;
+    color: white;
+    border-top: 0.5px solid white;
+    height: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .logo{
+    background-image: url(//logo1.jpg);
+    background-size: cover;
+    height: 50px;
+    width: 100px;
+} */
+
+.foot-panel4{
+    background-color: #222222;
+    color: white;
+    height: 80px;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.pages{
+    padding-top: 25px;
+}
+
+.copyright{
+    padding-top: 5px;
+}
+
+/* ------------------------------------------------------------------------------------ */
+
+/** Shop section **/
+.shop-section{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    background-color: #000000fc;
+}
+
+.box{
+    /* border: 2px solid black; */
+    height: 940px;
+    width: 47%;
+    background-color: black;
+    padding: 20px 0px 15px;
+    margin-top: 15px;
+}
+
+.box-img{
+    height: 850px;
+    background-size: cover;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.box-content{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.box-content p{
+    color: white;
+}
+
+.box-content{
+    margin-top: 1rem;
+}
+
+/* ---------------------- */
+
+.data{
+    /* background-color: #222f3d; */
+    color: rgb(241, 119, 12);
+    /* height: 300px; */
+    /* display: flex; */
+    justify-content: space-evenly;
+    
+}
+
+
+.button2{
+    width: 170px;
+    background:  rgb(241, 119, 12); 
+    height: 50px;
+    line-height: 40px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    color: white;
+    font-weight: bold;
+ 
+}
+
+.button2:hover{
+    /* background: rgba(20, 217, 210, 0.733); Darken the background on hover */
+    background-color:pink;
+    color: #100e0e; /* Change text color on hover */
+    transition: all 0.3s ease; /*Smooth transition for the hover effect */
+    
+}
+
+
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+
